@@ -24,7 +24,7 @@ public class DefaultChatServerFactory implements ChatServerFactory {
 
     @Override
     public ChatGroups createChatGroups() {
-        return new SynchronizedChatGroupsProxy(new ListChatGroups());
+        return new ListChatGroups();
     }
 
 }

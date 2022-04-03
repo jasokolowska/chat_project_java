@@ -1,11 +1,11 @@
 package com.jsokolowska.chatapp;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ListChatWorkers implements ChatWorkers {
 
-    private final List<ChatWorker> chatWorkers = new ArrayList<>();
+    private final Set<ChatWorker> chatWorkers = new HashSet<>();
 
     @Override
     public void add(ChatWorker chatWorker) {
@@ -18,7 +18,9 @@ public class ListChatWorkers implements ChatWorkers {
     }
 
     @Override
-    public void broadcast(String text) {
-        chatWorkers.forEach(chatWorker -> chatWorker.send(text));
+    public void broadcast(String text, String groupName) {
+        chatWorkers.stream()
+                .filter(chatWorker -> chatWorker.getCurrentGroup().getName().equals(groupName))
+                .forEach(chatWorker -> chatWorker.send(text));
     }
 }

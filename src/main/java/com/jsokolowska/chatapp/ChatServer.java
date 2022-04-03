@@ -42,12 +42,10 @@ public class ChatServer {
 
             ChatWorker chatWorker = new ChatWorker(socket, chatWorkers, chatGroups);
             chatWorkers.add(chatWorker);
-            log.info("chatWorkers: " + chatWorkers);
 
             chatGroup.addWorker(chatWorker);
             chatGroups.add(chatGroup);
-            log.info("chatGroups.get(chatGroup.getName()).get().getWorkers(): " + chatGroups.get(chatGroup.getName()).get().getWorkers());
-
+            
             executorService.execute(chatWorker);
         }
     }

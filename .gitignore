@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+## code examples
+/src/main/java/com/training/*

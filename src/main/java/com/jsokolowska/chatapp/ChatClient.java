@@ -15,8 +15,9 @@ public class ChatClient {
 
     public ChatClient(String host, int port, String name) throws IOException {
         Socket socket = new Socket(host, port);
-        onText = text -> new MessageWriter(socket).write("[" + name + "]: " + text);
-        readFromSocket = () -> new MessageReader(socket, System.out::println, () -> {}).read();
+        MessageWriter writer = new MessageWriter(socket);
+        onText = text -> writer.write(new ChatMessage("[" + name + "]: " + text));
+        readFromSocket = () -> new MessageReader(socket, System.out::println, () -> {}).readMessage();
         readFromConsole = () -> new MessageReader(System.in, onText).read();
     }
 
@@ -30,10 +31,10 @@ public class ChatClient {
 
     private void start() {
         new Thread(readFromSocket).start();
+        log.info("Connected to the chat server");
         Thread consoleMessageReader = new Thread(readFromConsole);
         consoleMessageReader.setDaemon(true);
         consoleMessageReader.start();
-        log.info("Connected to the chat server");
     }
 
 }

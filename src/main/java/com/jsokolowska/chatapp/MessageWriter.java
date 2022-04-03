@@ -1,31 +1,35 @@
 package com.jsokolowska.chatapp;
 
+import lombok.extern.java.Log;
+
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@Log
 public class MessageWriter {
 
-    private final Logger logger = Logger.getLogger(getClass().getName());
-
-    private PrintWriter writer;
+    private ObjectOutputStream object;
 
     public MessageWriter(Socket socket) {
         try {
-            writer = new PrintWriter(socket.getOutputStream(), true);
+            OutputStream output = socket.getOutputStream();
+            object = new ObjectOutputStream(output);
         } catch (IOException e) {
-           logger.log(Level.SEVERE, "Creating output stream failed: " + e.getMessage());
+           log.log(Level.SEVERE, "Creating output stream failed: " + e.getMessage());
         }
     }
 
-    public void write(String text) {
-        writer.println(text);
-    }
-
-    public void cleanConsole() {
-        writer.flush();
+    public void write(ChatMessage message) {
+        try {
+            object.writeObject(message);
+        } catch (IOException e) {
+            log.log(Level.SEVERE, "Creating output stream failed: " + e.getMessage());
+        }
     }
 
 }

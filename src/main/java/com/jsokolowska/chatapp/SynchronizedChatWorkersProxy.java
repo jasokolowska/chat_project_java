@@ -1,5 +1,6 @@
 package com.jsokolowska.chatapp;
 
+import java.io.Serializable;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -27,9 +28,9 @@ public class SynchronizedChatWorkersProxy implements ChatWorkers {
     }
 
     @Override
-    public void broadcast(String text) {
+    public void broadcast(String text, String group) {
         lock.readLock().lock();
-        chatWorkers.broadcast(text);
+        chatWorkers.broadcast(text, group);
         lock.readLock().unlock();
     }
 
