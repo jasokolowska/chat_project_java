@@ -18,7 +18,7 @@ public class ChatClient {
         MessageWriter writer = new MessageWriter(socket);
         onText = text -> writer.write(new ChatMessage("[" + name + "]: " + text));
         readFromSocket = () -> new MessageReader(socket, System.out::println, () -> {}).readMessage();
-        readFromConsole = () -> new MessageReader(System.in, onText).read();
+        readFromConsole = () -> new MessageReader(socket, System.in, onText).read();
     }
 
     public static void main(String[] args) throws IOException {

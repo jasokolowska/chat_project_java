@@ -24,4 +24,8 @@ public class ListChatGroups implements ChatGroups {
                 .filter(group -> group.getName().equals(name))
                 .findFirst();
     }
+
+    public void createNew(String groupName) {
+        add(new ChatGroup(groupName));
+    }
 }
