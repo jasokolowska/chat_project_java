@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class ChatGroup {
+public class ChatGroup  {
     private String name;
     private ChatWorkers workers;
     private List<ChatMessage> messages;

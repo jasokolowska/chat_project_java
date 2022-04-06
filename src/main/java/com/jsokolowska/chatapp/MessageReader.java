@@ -16,14 +16,16 @@ public class MessageReader {
     private ObjectInputStream inputObject;
     private BufferedReader reader;
     private Runnable onClose;
-    private FileSender fileSender;
-    private FileReceiver fileReceiver;
+    private Socket socket;
+//    private FileSender fileSender;
+//    private FileReceiver fileReceiver;
 
     public MessageReader(Socket socket, InputStream inputStream, Consumer<String> onText) {
         this.onText = onText;
+        this.socket = socket;
         reader = new BufferedReader(new InputStreamReader(inputStream));
-        fileSender = new FileSender(socket);
-        fileReceiver = new FileReceiver(socket);
+//        fileSender = new FileSender(socket);
+//        fileReceiver = new FileReceiver(socket);
     }
 
     public MessageReader(Socket socket, Consumer<String> onText, Runnable onClose) {
@@ -45,9 +47,16 @@ public class MessageReader {
                     log.info("Sending text to the server");
                     onText.accept(text);
                     log.info("Sending file to the server...");
-                    fileSender.send("C:\\Development\\Lufthansa\\chat_project_java\\src\\main\\resources\\server_test_file.txt");
+                    new FileSender(socket).send("C:\\Development\\Lufthansa\\chat_project_java\\src\\main\\resources\\server_test_file.txt");
                     log.info("File sended successfully...");
                     onText.accept("Sending a file...");
+                } else if (text.contains("DOWNLOAD")) {
+                    log.info("Sending message DOWNLOAD to the server");
+                    onText.accept(text);
+                    log.info("Downloading file from the server..");
+                    new FileReceiver(socket).receive("new_file_received_by_client.txt");
+                    log.info("File received succesfully");
+                    onText.accept("File succesfully downloaded");
                 } else {
                     onText.accept(text);
                 }
@@ -66,20 +75,12 @@ public class MessageReader {
         ChatMessage message;
         try {
             while ((message = (ChatMessage) inputObject.readObject()) != null) {
-//                if (message.getContent().contains("DOWNLOAD")) {
-//                    log.info("Sending message DOWNLOAD to the server");
-//                    onText.accept(message.getContent());
-//                    log.info("Downloading file from the server..");
-//                    fileReceiver.receive("new_file_received_by_client");
-//                    log.info("File received succesfully");
-//                } else {
-//                    onText.accept(message.getContent());
-//                }
+                if (message.getContent().equals("Goodbye")) break;
                 onText.accept(message.getContent());
-
             }
         } catch (IOException | ClassNotFoundException e) {
             logger.log(Level.SEVERE, "readMessage(): Read message failed: " + e.getMessage());
+            e.printStackTrace();
         }
         finally {
             if (onClose != null) {

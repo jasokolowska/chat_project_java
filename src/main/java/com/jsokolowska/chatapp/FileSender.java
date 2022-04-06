@@ -11,12 +11,10 @@ public class FileSender {
 
     //reading file from system and send it to the socket
 
-    private DataInputStream dataInput;
     private DataOutputStream dataOutput;
 
     public FileSender(Socket socket) {
         try {
-            this.dataInput = new DataInputStream(socket.getInputStream());
             this.dataOutput = new DataOutputStream(socket.getOutputStream());
         } catch (IOException e) {
             log.log(Level.SEVERE, "Creating input/output stream failed: " + e.getMessage());

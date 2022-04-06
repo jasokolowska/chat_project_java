@@ -6,6 +6,7 @@ import lombok.extern.java.Log;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 
@@ -44,11 +45,13 @@ public class ChatWorker implements Runnable{
     @Override
     public void run() {
         send("Your current room is: " + currentGroup.getName());
+        currentGroup.getMessages().forEach(message -> send(message.getContent()));
         reader.readMessage();
     }
 
     private void onText(String text) {
         if (text.endsWith(END_SESSION_COMMAND)) {
+            send("Goodbye");
             closeSocket();
         } else if (text.contains(CREATE_NEW_GROUP_COMMAND)) {
             String groupName = getVariable(text);
@@ -85,11 +88,13 @@ public class ChatWorker implements Runnable{
                 log.info("Start sending file from server to the client");
                 fileSender.send("C:\\Development\\Lufthansa\\chat_project_java\\temporary_server_file.txt");
                 log.info("File send succesfully to the client");
+                send("File downloaded successfully");
             } catch (IOException e) {
                 log.log(Level.SEVERE, "Sending file failed: " + e.getMessage());
             }
         } else {
             ChatMessage message = new ChatMessage(text, currentGroup.getName());
+            ChatServer.save(message);
             currentGroup.getMessages().add(message);
             currentGroup.getWorkers().broadcast(message.getContent(), currentGroup.getName());
         }

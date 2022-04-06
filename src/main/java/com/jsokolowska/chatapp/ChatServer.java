@@ -15,6 +15,8 @@ public class ChatServer {
     private final ChatWorkers chatWorkers = factory.createChatWorkers();
     private final ChatGroups chatGroups = factory.createChatGroups();
     private final ExecutorService executorService = factory.createExecutorService();
+    private static final ChatHistory history = new ChatHistory();
+    private static ChatMessages messages = new ChatMessages();
 
     public static void main(String[] args) {
         int port = Integer.parseInt(args[0]);
@@ -24,6 +26,8 @@ public class ChatServer {
     private void start(int port) {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
+            messages = history.importData();
+//            messages.getAll().forEach(chatMessage -> chatGroups.get(chatMessage.getGroupName()).get().getMessages().add(chatMessage));
             listen(serverSocket, port);
         } catch (IOException e) {
             logger.log("Server failed to start: " + e.getMessage());
@@ -50,4 +54,8 @@ public class ChatServer {
         }
     }
 
+    public static void save(ChatMessage chatMessage){
+        messages.add(chatMessage);
+        history.exportData(messages);
+    }
 }
