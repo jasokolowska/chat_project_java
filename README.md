@@ -1,13 +1,13 @@
-##Description
+## Description
 
 This is project of chat application build using Java Socket. Beside basic communication between users, there is also possible to create private channels. Another feature is saving history of the chat in a file - after starting application the history is loaded to each client (each client has access to history of the channels which is member).
 
-##Requirements
+## Requirements
 
 - JAVA 11
 - Lombok
 
-##Setup
+## Setup
 
 To start the application you need to follow this steps:
 1. Run the ChatServer file - specify the port number when running the server program from the command line.
