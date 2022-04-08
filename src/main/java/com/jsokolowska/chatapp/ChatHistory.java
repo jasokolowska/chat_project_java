@@ -1,14 +1,32 @@
 package com.jsokolowska.chatapp;
 
+import lombok.NoArgsConstructor;
 import lombok.extern.java.Log;
 
 import java.io.*;
 import java.util.logging.Level;
 
 @Log
+@NoArgsConstructor
 public class ChatHistory {
 
     private static final String FILE_NAME = "ChatMessages.o";
+    private ChatMessages messages;
+
+    public ChatHistory(ChatMessages messages) {
+        this.messages = messages;
+    }
+
+    public void save() {
+        while (true) {
+            exportData(messages);
+            try {
+                Thread.sleep(10000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public void exportData(ChatMessages messages) {
         try (FileOutputStream fos = new FileOutputStream(FILE_NAME);
@@ -31,9 +49,10 @@ public class ChatHistory {
         } catch (FileNotFoundException e) {
             log.log(Level.SEVERE, "File not found: " + e.getMessage());
         } catch (IOException e) {
-            log.log(Level.SEVERE, "Creating outpus stream failed: " + e.getMessage());
+            log.log(Level.SEVERE, "Creating output stream failed: " + e.getMessage());
+            e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            log.log(Level.SEVERE, "Niezgodny typ danych w pliku: " + FILE_NAME);
+            log.log(Level.SEVERE, "Incorrect data type in file: " + FILE_NAME);
         }
         return new ChatMessages();
     }

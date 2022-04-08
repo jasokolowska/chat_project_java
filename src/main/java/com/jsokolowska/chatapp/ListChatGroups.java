@@ -1,13 +1,11 @@
 package com.jsokolowska.chatapp;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class ListChatGroups implements ChatGroups, Serializable {
 
-    private final List<ChatGroup> chatGroups = new ArrayList<>();
+    private final Set<ChatGroup> chatGroups = new HashSet<>();
 
     @Override
     public void add(ChatGroup chatGroup) {
@@ -26,9 +24,8 @@ public class ListChatGroups implements ChatGroups, Serializable {
                 .findFirst();
     }
 
-    public void createNew(String groupName) {
-        add(new ChatGroup(groupName));
+    @Override
+    public Set<ChatGroup> getAll() {
+        return chatGroups;
     }
-
-
 }

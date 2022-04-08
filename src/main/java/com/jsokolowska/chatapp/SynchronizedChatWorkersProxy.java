@@ -1,6 +1,7 @@
 package com.jsokolowska.chatapp;
 
 import java.io.Serializable;
+import java.util.Set;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -34,4 +35,8 @@ public class SynchronizedChatWorkersProxy implements ChatWorkers {
         lock.readLock().unlock();
     }
 
+    @Override
+    public Set<ChatWorker> getAll() {
+        return chatWorkers.getAll();
+    }
 }

@@ -1,5 +1,9 @@
 package com.jsokolowska.chatapp;
 
+import com.sun.source.tree.SwitchExpressionTree;
+
+import java.util.Set;
+
 public interface ChatWorkers {
 
     void add(ChatWorker chatWorker);
@@ -8,4 +12,5 @@ public interface ChatWorkers {
 
     void broadcast(String text, String groupName);
 
+    Set<ChatWorker> getAll();
 }

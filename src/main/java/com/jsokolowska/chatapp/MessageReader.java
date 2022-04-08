@@ -62,7 +62,7 @@ public class MessageReader {
                 }
             }
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "read(): Read message failed: " + e.getMessage());
+            logger.log(Level.SEVERE, "Read message failed: " + e.getMessage());
         }
         finally {
             if (onClose != null) {
@@ -79,7 +79,7 @@ public class MessageReader {
                 onText.accept(message.getContent());
             }
         } catch (IOException | ClassNotFoundException e) {
-            logger.log(Level.SEVERE, "readMessage(): Read message failed: " + e.getMessage());
+            logger.log(Level.SEVERE, "Read message failed: " + e.getMessage());
             e.printStackTrace();
         }
         finally {

@@ -7,9 +7,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 
 @Log
-public class FileReceiver implements Runnable{
-
-    //receiving file from the socket and writing on disk
+public class FileReceiver{
 
     private DataInputStream dataInput;
 
@@ -18,19 +16,6 @@ public class FileReceiver implements Runnable{
             this.dataInput = new DataInputStream(socket.getInputStream());
         } catch (IOException e) {
             log.log(Level.SEVERE, "Creating input/output stream failed: " + e.getMessage());
-        }
-    }
-
-    @Override
-    public void run() {
-        try {
-            while(true) {
-                if (dataInput.readLong() > 0) {
-                    receive("testfile.txt");
-                }
-            }
-        } catch (IOException e) {
-            log.log(Level.SEVERE, "Reading input stream failed: " + e.getMessage());
         }
     }
 
@@ -51,4 +36,5 @@ public class FileReceiver implements Runnable{
         fileOutputStream.close();
         log.info("Method receive file stopped...");
     }
+
 }

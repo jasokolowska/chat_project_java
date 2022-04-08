@@ -1,8 +1,11 @@
 package com.jsokolowska.chatapp;
 
+import lombok.extern.java.Log;
+
 import java.util.HashSet;
 import java.util.Set;
 
+@Log
 public class ListChatWorkers implements ChatWorkers {
 
     private final Set<ChatWorker> chatWorkers = new HashSet<>();
@@ -22,5 +25,10 @@ public class ListChatWorkers implements ChatWorkers {
         chatWorkers.stream()
                 .filter(chatWorker -> chatWorker.getCurrentGroup().getName().equals(groupName))
                 .forEach(chatWorker -> chatWorker.send(text));
+    }
+
+    @Override
+    public Set<ChatWorker> getAll() {
+        return chatWorkers;
     }
 }

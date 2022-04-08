@@ -8,7 +8,7 @@ public class ChatMessages implements Serializable {
 
     private List<ChatMessage> messages = new LinkedList<>();
 
-    public void add(ChatMessage chatMessage){
+    public void save(ChatMessage chatMessage){
         messages.add(chatMessage);
     }
 
