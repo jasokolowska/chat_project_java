@@ -1,4 +1,10 @@
-package com.jsokolowska.chatapp;
+package com.jsokolowska.chatapp.server;
+
+import com.jsokolowska.chatapp.server.groups.ChatGroups;
+import com.jsokolowska.chatapp.server.groups.ListChatGroups;
+import com.jsokolowska.chatapp.server.workers.ChatWorkers;
+import com.jsokolowska.chatapp.server.workers.ListChatWorkers;
+import com.jsokolowska.chatapp.server.workers.SynchronizedChatWorkersProxy;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

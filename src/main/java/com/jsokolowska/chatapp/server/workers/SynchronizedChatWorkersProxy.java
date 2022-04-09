@@ -1,6 +1,5 @@
-package com.jsokolowska.chatapp;
+package com.jsokolowska.chatapp.server.workers;
 
-import java.io.Serializable;
 import java.util.Set;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;

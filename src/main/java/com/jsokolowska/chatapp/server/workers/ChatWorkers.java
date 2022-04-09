@@ -1,6 +1,4 @@
-package com.jsokolowska.chatapp;
-
-import com.sun.source.tree.SwitchExpressionTree;
+package com.jsokolowska.chatapp.server.workers;
 
 import java.util.Set;
 

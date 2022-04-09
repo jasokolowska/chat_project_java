@@ -1,14 +1,13 @@
-package com.jsokolowska.chatapp;
+package com.jsokolowska.chatapp.shared;
 
+import com.jsokolowska.chatapp.server.messages.ChatMessage;
 import lombok.extern.java.Log;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Log
 public class MessageWriter {

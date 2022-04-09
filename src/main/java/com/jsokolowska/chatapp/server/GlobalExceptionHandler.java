@@ -1,4 +1,4 @@
-package com.jsokolowska.chatapp;
+package com.jsokolowska.chatapp.server;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

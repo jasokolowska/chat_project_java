@@ -1,5 +1,11 @@
-package com.jsokolowska.chatapp;
+package com.jsokolowska.chatapp.server;
 
+import com.jsokolowska.chatapp.server.groups.ChatGroup;
+import com.jsokolowska.chatapp.server.groups.ChatGroups;
+import com.jsokolowska.chatapp.server.messages.ChatMessage;
+import com.jsokolowska.chatapp.server.messages.ChatMessages;
+import com.jsokolowska.chatapp.server.workers.ChatWorker;
+import com.jsokolowska.chatapp.server.workers.ChatWorkers;
 import lombok.extern.java.Log;
 
 import java.io.IOException;
@@ -11,7 +17,6 @@ import java.util.concurrent.ExecutorService;
 public class ChatServer {
 
     private final ChatServerFactory factory = new DefaultChatServerFactory();
-    private final Logger logger = factory.createLogger();
     private final ChatWorkers chatWorkers = factory.createChatWorkers();
     private final ChatGroups chatGroups = factory.createChatGroups();
     private final ExecutorService executorService = factory.createExecutorService();
@@ -32,12 +37,12 @@ public class ChatServer {
             historyRecord.start();
             listen(serverSocket, port);
         } catch (IOException e) {
-            logger.log("Server failed to start: " + e.getMessage());
+            log.info("Server failed to start: " + e.getMessage());
         }
     }
 
     private void listen(ServerSocket serverSocket, int port) throws IOException {
-        logger.log("Server is listening on port: " + port);
+        log.info("Server is listening on port: " + port);
 
         if (chatGroups.get("GENERAL").isEmpty()) {
             chatGroups.add(new ChatGroup("GENERAL"));
@@ -46,7 +51,7 @@ public class ChatServer {
 
         while (true) {
             Socket socket = serverSocket.accept();
-            logger.log("New connection established...");
+            log.info("New connection established...");
 
             ChatWorker chatWorker = new ChatWorker(socket, chatWorkers, chatGroups, messages);
             chatWorkers.add(chatWorker);

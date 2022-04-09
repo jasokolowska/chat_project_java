@@ -1,5 +1,9 @@
-package com.jsokolowska.chatapp;
+package com.jsokolowska.chatapp.server.groups;
 
+import com.jsokolowska.chatapp.server.messages.ChatMessage;
+import com.jsokolowska.chatapp.server.workers.ChatWorker;
+import com.jsokolowska.chatapp.server.workers.ChatWorkers;
+import com.jsokolowska.chatapp.server.workers.ListChatWorkers;
 import lombok.Data;
 
 import java.util.ArrayList;

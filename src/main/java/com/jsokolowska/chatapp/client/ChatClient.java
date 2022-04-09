@@ -1,9 +1,12 @@
-package com.jsokolowska.chatapp;
+package com.jsokolowska.chatapp.client;
 
+import com.jsokolowska.chatapp.server.messages.ChatMessage;
+import com.jsokolowska.chatapp.server.GlobalExceptionHandler;
+import com.jsokolowska.chatapp.shared.MessageReader;
+import com.jsokolowska.chatapp.shared.MessageWriter;
 import lombok.extern.java.Log;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.function.Consumer;
 

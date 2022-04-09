@@ -1,4 +1,4 @@
-package com.jsokolowska.chatapp;
+package com.jsokolowska.chatapp.server.messages;
 
 import lombok.Data;
 

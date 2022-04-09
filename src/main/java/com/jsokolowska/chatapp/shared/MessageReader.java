@@ -1,5 +1,6 @@
-package com.jsokolowska.chatapp;
+package com.jsokolowska.chatapp.shared;
 
+import com.jsokolowska.chatapp.server.messages.ChatMessage;
 import lombok.extern.java.Log;
 
 import java.io.*;

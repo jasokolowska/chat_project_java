@@ -1,5 +1,13 @@
-package com.jsokolowska.chatapp;
+package com.jsokolowska.chatapp.server.workers;
 
+import com.jsokolowska.chatapp.server.messages.ChatMessage;
+import com.jsokolowska.chatapp.server.messages.ChatMessages;
+import com.jsokolowska.chatapp.shared.FileReceiver;
+import com.jsokolowska.chatapp.shared.FileSender;
+import com.jsokolowska.chatapp.server.groups.ChatGroup;
+import com.jsokolowska.chatapp.server.groups.ChatGroups;
+import com.jsokolowska.chatapp.shared.MessageReader;
+import com.jsokolowska.chatapp.shared.MessageWriter;
 import lombok.Data;
 import lombok.extern.java.Log;
 

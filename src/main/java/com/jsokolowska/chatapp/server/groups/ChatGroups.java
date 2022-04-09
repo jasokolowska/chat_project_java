@@ -1,4 +1,4 @@
-package com.jsokolowska.chatapp;
+package com.jsokolowska.chatapp.server.groups;
 
 import java.util.Optional;
 import java.util.Set;
