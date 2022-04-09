@@ -11,8 +11,6 @@ public interface ChatServerFactory {
 
     ExecutorService createExecutorService();
 
-    Logger createLogger();
-
     ChatGroups createChatGroups();
 
 }

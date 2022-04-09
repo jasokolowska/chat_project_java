@@ -44,7 +44,6 @@ public class ChatWorker implements Runnable {
         this.chatGroups = chatGroups;
         this.chatWorkers = chatWorkers;
         this.messages = messages;
-        this.userName = "none";
         this.currentGroup = chatGroups.get("GENERAL").get();
         this.fileSender = new FileSender(socket);
         this.fileReceiver = new FileReceiver(socket);
@@ -55,8 +54,8 @@ public class ChatWorker implements Runnable {
     @Override
     public void run() {
         send("Your current room is: " + currentGroup.getName());
-        send("Users: " + currentGroup.getUserNames());
-        currentGroup.getMessages().forEach(message -> send(message.getContent()));
+//        send("Users: " + currentGroup.getUserNames());
+//        currentGroup.getMessages().forEach(message -> send(message.getContent()));
         new MessageReader(socket, this::onText, () -> chatWorkers.remove(this)).readMessage();
     }
 
@@ -66,6 +65,8 @@ public class ChatWorker implements Runnable {
             closeSocket();
         } else if (text.startsWith("USERNAME:")) {
             addUserName(text);
+            send("Users: " + currentGroup.getUserNames());
+            currentGroup.getMessages().forEach(message -> send(message.getContent()));
         } else if (text.contains(CREATE_NEW_GROUP_COMMAND)) {
             createNewGroup(text);
         } else if (text.contains(JOIN_COMMAND)) {
@@ -86,8 +87,7 @@ public class ChatWorker implements Runnable {
 
     private void addUserName(String text) {
         this.userName = getVariable(text);
-        chatGroups.getAll().stream()
-                        .forEach(group -> System.out.println("Group name: " + group.getName() + " workers: " + group.getWorkers().getAll().size()));
+        currentGroup.getUserNames().add(userName);
         chatGroups.getAll().stream()
                 .filter(group -> !group.getName().equals(currentGroup.getName()))
                 .filter(group -> group.getUserNames().contains(userName))

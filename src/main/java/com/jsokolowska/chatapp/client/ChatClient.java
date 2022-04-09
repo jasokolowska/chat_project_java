@@ -7,6 +7,7 @@ import com.jsokolowska.chatapp.shared.MessageWriter;
 import lombok.extern.java.Log;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.function.Consumer;
 

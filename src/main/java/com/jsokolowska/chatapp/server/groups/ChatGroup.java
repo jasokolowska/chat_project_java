@@ -27,7 +27,6 @@ public class ChatGroup  {
 
     public void addWorker(ChatWorker chatWorker) {
         workers.add(chatWorker);
-        userNames.add(chatWorker.getUserName());
     }
 
     public void removeWorker(ChatWorker chatWorker) {
